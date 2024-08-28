@@ -1,9 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from urllib.request import urlopen
 import instaloader
-import glob
-import os
 
 
 class Instagram:
@@ -24,4 +21,4 @@ class Instagram:
         L.download_post(instaloader.Post.from_shortcode(L.context, post_shortcode), target=post_shortcode)
                 
         
-print(Instagram("https://www.instagram.com/p/C_MwyEANzlZ/?utm_source=ig_web_copy_link&").download_photo())
+# print(Instagram("https://www.instagram.com/p/C_MwyEANzlZ/?utm_source=ig_web_copy_link&").download_photo())

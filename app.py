@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 import os
 from instagram import Instagram
+import uvicorn
 
 app = FastAPI()
 
@@ -30,3 +31,6 @@ async def downloaded():
             yield from file_like
     
     return StreamingResponse(iterfile(), media_type="video/mp4")
+
+
+uvicorn.run(app)

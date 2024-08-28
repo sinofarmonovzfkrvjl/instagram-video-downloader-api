@@ -1,5 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
+from urllib.request import urlopen
+import instaloader
+import glob
+import os
 
 
 class Instagram:
@@ -14,13 +18,10 @@ class Instagram:
             video.write(res.content)
         
     def download_photo(self):
-        url = self.url
-        # image = url.replace("www.", "d.dd")
-        res = requests.get(url)
-        soup = BeautifulSoup(res.text, "html.parser")
-        # with open("image.png", 'wb') as video:
-        #     video.write(res.content)
-        return soup.find_all("img", attrs={'class': 'x5yr21d xu96u03 x10l6tqk x13vifvy x87ps6o xh8yej3'})
+        post_url = self.url
+        L = instaloader.Instaloader()
+        post_shortcode = post_url.split("/")[-2]
+        L.download_post(instaloader.Post.from_shortcode(L.context, post_shortcode), target=post_shortcode)
+                
         
-        
-print(Instagram("https://www.instagram.com/p/C_MwyEANzlZ/?utm_source=ig_web_copy_link&img_index=1").download_photo())
+print(Instagram("https://www.instagram.com/p/C_MwyEANzlZ/?utm_source=ig_web_copy_link&").download_photo())

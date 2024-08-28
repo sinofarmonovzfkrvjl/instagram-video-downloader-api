@@ -1,4 +1,5 @@
 import requests
+from bs4 import BeautifulSoup
 
 
 class Instagram:
@@ -11,4 +12,14 @@ class Instagram:
         res = requests.get(video)
         with open("video.mp4", 'wb') as video:
             video.write(res.content)
-    
+        
+    def download_photo(self):
+        url = self.url
+        video = url.replace("www.", "d.dd")
+        res = requests.get(video)
+        with open("image.png", 'wb') as video:
+            video.write(res.content)
+        
+        return requests.get("https://www.ddinstagram.com/p/C_MwyEANzlZ/?utm_source=ig_web_copy_link").text
+        
+print(Instagram("https://www.instagram.com/p/C_MwyEANzlZ/?utm_source=ig_web_copy_link").download_photo())

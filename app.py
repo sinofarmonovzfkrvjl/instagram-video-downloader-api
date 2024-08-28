@@ -21,16 +21,13 @@ async def download(url):
     elif url.startswith("https://www.instagram.com/p/"):
         Instagram(url).download_photo()
     
-
-@app.get("/api/v1/downloaded/tyfqyudgsjdvnjegyg89578932ru28741093rujioqeuf9i")
-async def downloaded():
-
     def iterfile():
         os.path.join("video.mp4")
         with open("video.mp4", "rb") as file_like:
             yield from file_like
     
     return StreamingResponse(iterfile(), media_type="video/mp4")
+    
 
 
 uvicorn.run(app)

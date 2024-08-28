@@ -19,6 +19,3 @@ class Instagram:
         L = instaloader.Instaloader()
         post_shortcode = post_url.split("/")[-2]
         L.download_post(instaloader.Post.from_shortcode(L.context, post_shortcode), target=post_shortcode)
-                
-        
-# print(Instagram("https://www.instagram.com/p/C_MwyEANzlZ/?utm_source=ig_web_copy_link&").download_photo())

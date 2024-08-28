@@ -29,7 +29,5 @@ async def download(url):
             with open("iamge.png", "rb") as file_like:
                 yield from file_like
 
-    
-    
     return StreamingResponse(iterfile(), media_type="video/mp4")
 

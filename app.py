@@ -17,16 +17,19 @@ async def download(url):
         pass
     if url.startswith("https://www.instagram.com/reel/"):
         Instagram(url).download_video()
+        def iterfile():
+            os.path.join("video.mp4")
+            with open("video.mp4", "rb") as file_like:
+                yield from file_like
+
     elif url.startswith("https://www.instagram.com/p/"):
         Instagram(url).download_photo()
+        def iterfile():
+            os.path.join("image.png")
+            with open("iamge.png", "rb") as file_like:
+                yield from file_like
 
-
-@app.get("/api/v1/downloaded/tyfqyudgsjdvnjegyg89578932ru28741093rujioqeuf9i")
-async def downloaded():
-
-    def iterfile():
-        os.path.join("video.mp4")
-        with open("video.mp4", "rb") as file_like:
-            yield from file_like
+    
     
     return StreamingResponse(iterfile(), media_type="video/mp4")
+

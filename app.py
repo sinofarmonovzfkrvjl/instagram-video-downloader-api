@@ -27,7 +27,3 @@ async def download(url):
             yield from file_like
     
     return StreamingResponse(iterfile(), media_type="video/mp4")
-    
-
-
-uvicorn.run(app)

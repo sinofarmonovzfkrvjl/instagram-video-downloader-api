@@ -1,0 +1,25 @@
+from fastapi import FastAPI, Response
+from fastapi.responses import StreamingResponse
+import os
+from instagram import Instagram
+
+app = FastAPI()
+
+@app.get("/")
+async def root():
+    return "this is instagram video downloader API"
+
+@app.get("/api/v1/download")
+async def download(url):
+    try:
+        os.remove("video.mp4")
+    except:
+        pass
+    Instagram(url).download_video()
+
+    def iterfile():
+        os.path.join("video.mp4")
+        with open("video.mp4", "rb") as file_like:
+            yield from file_like 
+    
+    return StreamingResponse(iterfile(), media_type="video/mp4")

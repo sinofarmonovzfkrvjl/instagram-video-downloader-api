@@ -19,6 +19,3 @@ class Instagram:
         res = requests.get(video)
         with open("image.png", 'wb') as video:
             video.write(res.content)
-        
-        
-print(Instagram("https://www.instagram.com/p/C_MwyEANzlZ/?utm_source=ig_web_copy_link").download_photo())

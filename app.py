@@ -26,13 +26,19 @@ async def download(url):
                     yield from video
 
             return StreamingResponse(itervideo(), media_type="video/mp4")
+        else:
+            return "ERROR"
             
-    if url.startswith("https://www.instagram.com/p/"):
+    elif url.startswith("https://www.instagram.com/p/"):
         if Instagram(url).download_photo():
             def iterimage():
                 # os.path.join("image.png")
                 with open("image.png", "rb") as image:
                     yield from image
 
-        return StreamingResponse(iterimage(), media_type="image/png")
+            return StreamingResponse(iterimage(), media_type="image/png")
 
+        else:
+            return "ERROR"
+    else:
+        return "This is not instagram video's url"

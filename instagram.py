@@ -8,8 +8,8 @@ class Instagram:
     def download_video(self):
         url = self.url.replace("www.", "d.dd")
         res = requests.get(url)
-        # with open("video.mp4", "wb") as f:
-        #     f.write(res.content)
+        with open("video.mp4", "wb") as f:
+            f.write(res.content)
         res = requests.get(url.replace("d.dd", "www.dd"))
         soup = BeautifulSoup(res.text, "html.parser")
         description = soup.find_all("meta", property="og:description")

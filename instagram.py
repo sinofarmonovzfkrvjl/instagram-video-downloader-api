@@ -17,3 +17,6 @@ class Instagram:
         with open("image.png", "wb") as f:
             f.write(res.content)
         return True
+
+
+print(Instagram("https://www.instagram.com/reel/C_QZqjFpaMr/?utm_source=ig_web_copy_link").download_video())

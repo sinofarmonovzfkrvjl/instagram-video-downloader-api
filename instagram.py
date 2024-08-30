@@ -20,6 +20,8 @@ class Instagram:
         res = requests.get(url)
         with open("image.png", "wb") as f:
             f.write(res.content)
-        return True
+        res = requests.get(url.replace("d.dd", "www.dd"))
+        soup = BeautifulSoup(res.text, "html.parser")
+        description = soup.find_all("meta", property="og:description")
+        return description[0]['content']
     
-print(Instagram("https://www.instagram.com/p/C_QukNnq0Jh/?utm_source=ig_web_copy_link").download_video())

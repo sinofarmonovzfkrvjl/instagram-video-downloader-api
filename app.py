@@ -15,6 +15,9 @@ async def root():
 async def download(url):
     try:
         os.remove("video.mp4")
+    except:
+        pass
+    try:
         os.remove("image.png")
     except:
         pass
@@ -22,7 +25,7 @@ async def download(url):
     if url.startswith("https://www.instagram.com/p/"):
         if Instagram(url).download_photo():
             def iterimage():
-                # os.path.join("image.png")
+                os.path.join("image.png")
                 with open("image.png", "rb") as image:
                     yield from image
 
@@ -33,10 +36,14 @@ async def download(url):
     else:
         if Instagram(url).download_video():
             def itervideo():
-                # os.path.join("video.mp4")
+                os.path.join("video.mp4")
                 with open("video.mp4", "rb") as video:
                     yield from video
 
             return StreamingResponse(itervideo(), media_type="video/mp4")
         else:
             return "ERROR"
+        
+@app.get("/contact-admin")
+async def contact_admin():
+    return {"message": "https://t.me/sinofarmonov"}

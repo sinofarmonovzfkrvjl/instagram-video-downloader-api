@@ -28,9 +28,7 @@ async def download(url):
                 os.path.join("image.png")
                 with open("image.png", "rb") as image:
                     yield from image
-
             return StreamingResponse(iterimage(), media_type="image/png")
-
         else:
             return "ERROR"
     else:

@@ -25,12 +25,3 @@ class Instagram:
         description = soup.find_all("meta", property="og:description")
         return description[0]['content']
     
-class VideoDownloader:
-    def __init__(self, url):
-        self.url = url
-
-    def download(self):
-        with open("vdeo.mp4", "wb") as video:
-            video.write(requests.get(self.url).content)
-        with open("image.png", "wb") as image:
-            image.write(requests.get(self.url).content)

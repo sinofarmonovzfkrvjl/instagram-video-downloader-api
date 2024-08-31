@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 import os
-from instagram import Instagram, VideoDownloader
+from instagram import Instagram
 
 app = FastAPI()
 
@@ -33,25 +33,12 @@ async def download(url):
         elif not description:
             return {"url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
     else:
-        if url.startswith("https://www.instagram.com/"):
-            media = "video"
-            description = Instagram(url).download_video()
-            if description:
-                return {"description": description, "url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
-            else:
-                return {"url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
+        media = "video"
+        description = Instagram(url).download_video()
+        if description:
+            return {"description": description, "url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
         else:
-            try:
-                os.remove("video.mp4")
-            except:
-                pass
-            try:
-                os.remove("image.png")
-            except:
-                pass
-            VideoDownloader(url).download()
-            with open("video.mp4", "rb") as video:
-                return {"url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
+            return {"url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
         
 @app.get("/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf")
 async def get_media():

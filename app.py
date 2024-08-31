@@ -11,6 +11,8 @@ async def root():
     
     Bu instagramdan video yuklovchi API"""
 
+media = None
+
 @app.get("/api/v1/download")
 async def download(url):
     try:
@@ -21,26 +23,39 @@ async def download(url):
         os.remove("image.png")
     except:
         pass
-            
+    
     if url.startswith("https://www.instagram.com/p/"):
-        if Instagram(url).download_photo():
-            def iterimage():
+        global media
+        media = "photo"
+        description = Instagram(url).download_photo()
+        if description:
+            return {"description": description, "url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
+        elif not description:
+            return {"url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
+    else:
+        media = "video"
+        description = Instagram(url).download_video()
+        if description:
+            return {"description": description, "url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
+        else:
+            return {"url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
+        
+@app.get("/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf")
+async def get_media():
+    if media == "photo":
+        def iterimage():
                 os.path.join("image.png")
                 with open("image.png", "rb") as image:
                     yield from image
-            return StreamingResponse(iterimage(), media_type="image/png")
-        else:
-            return "ERROR"
-    else:
-        if Instagram(url).download_video():
-            def itervideo():
+        
+        return StreamingResponse(iterimage(), media_type="image/png")
+    elif media == "video":
+        def itervideo():
                 os.path.join("video.mp4")
                 with open("video.mp4", "rb") as video:
                     yield from video
 
-            return StreamingResponse(itervideo(), media_type="video/mp4")
-        else:
-            return "ERROR"
+        return StreamingResponse(itervideo(), media_type="video/mp4")
         
 @app.get("/contact-admin")
 async def contact_admin():

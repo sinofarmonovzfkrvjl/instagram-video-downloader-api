@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 import os
 from instagram import Instagram
+from time import sleep
 
 app = FastAPI()
 
@@ -32,13 +33,18 @@ async def download(url):
             return {"description": description, "url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
         elif not description:
             return {"url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
+        sleep(5)
+        os.remove("image.png")
+        
     else:
         media = "video"
         description = Instagram(url).download_video()
         if description:
             return {"description": description, "url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
-        else:
+        elif not description:
             return {"url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
+        sleep(5)
+        os.remove("video.mp4")
         
 @app.get("/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf")
 async def get_media():

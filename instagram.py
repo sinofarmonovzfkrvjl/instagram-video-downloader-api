@@ -12,8 +12,8 @@ class Instagram:
             f.write(res.content)
         res = requests.get(url.replace("d.dd", "www.dd"))
         soup = BeautifulSoup(res.text, "html.parser")
-        description = soup.find_all("meta", property="og:description")
-        return description[0]['content']
+        description = soup.find_all("meta", property="og:description")[0]['content']
+        return description
 
     def download_photo(self):
         url = self.url.replace("www.", "d.dd")

@@ -8,6 +8,7 @@ https://instagram-video-downloader-api-8voc.onrender.com
 Bu api pythondagi FastAPI kutubxonasi tomonidan yasakgan
 
 **dokumentatsiya:**
+
 apini ishlatish uchun shu manzilga boring
 ```
 https://instagram-video-downloader-api-8voc.onrender.com/api/v1/download?url=[video_url]

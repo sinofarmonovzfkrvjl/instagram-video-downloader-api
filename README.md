@@ -1,7 +1,7 @@
 #instagram-video-downloader-api
 
 bu instagramdan video yuklovchi api
-asosysi u tekin va cheksizva u instagramdan video, stoies, rasmlar va albom rasmlarni yuklay oladi
+asosysi u tekin va cheksizva u instagramdan video, stoies, rasmlar yuklay oladi
 
 https://instagram-video-downloader-api-8voc.onrender.com
 

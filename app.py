@@ -1,10 +1,19 @@
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
+from fastapi.middleware import cors
 import os
 from instagram import Instagram
 from time import sleep
 
 app = FastAPI()
+
+app.add_middleware(
+    cors.CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+    allow_credentials=True
+)
 
 @app.get("/", include_in_schema=False)
 async def root():
@@ -15,7 +24,7 @@ async def root():
 media = None
 
 @app.get("/api/v1/download")
-async def download(url):
+async def download(url: str):
     try:
         os.remove("video.mp4")
     except:

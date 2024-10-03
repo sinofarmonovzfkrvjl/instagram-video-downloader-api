@@ -145,10 +145,10 @@ class Instagram:
             }
             return response
 
-@app.post("/instagram/")
-async def get_instagram_media(instagram_url: str):
+@app.get("/api/v2/download")
+async def get_instagram_media(url: str):
     try:
-        info = await Instagram.get_info(instagram_url)
+        info = await Instagram.get_info(url)
         return info
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))

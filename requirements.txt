@@ -2,3 +2,5 @@ fastapi
 requests
 beautifulsoup4
 uvicorn
+aiohttp
+

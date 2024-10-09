@@ -2,13 +2,13 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 from fastapi.middleware import cors
 import os
-from instagram import Instagram
+from instagram import InstagramV1
 from time import sleep
 import aiohttp
 from bs4 import BeautifulSoup
 from yarl import URL
 
-app = FastAPI()
+app = FastAPI(docs_url='/', title="Instagram Media Downloder API | t.me/sinofarmonov2")
 
 app.add_middleware(
     cors.CORSMiddleware,
@@ -26,7 +26,7 @@ async def root():
 
 media = None
 
-@app.get("/api/v1/download")
+@app.get("/api/v1/download", tags=['Version 1'])
 async def download(url: str):
     try:
         os.remove("video.mp4")
@@ -40,7 +40,7 @@ async def download(url: str):
     if url.startswith("https://www.instagram.com/p/"):
         global media
         media = "photo"
-        description = Instagram(url).download_photo()
+        description = InstagramV1(url).download_photo()
         if description:
             return {"description": description, "url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
         elif not description:
@@ -50,7 +50,7 @@ async def download(url: str):
         
     else:
         media = "video"
-        description = Instagram(url).download_video()
+        description = InstagramV1(url).download_video()
         if description:
             return {"description": description, "url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
         elif not description:
@@ -58,7 +58,7 @@ async def download(url: str):
         sleep(5)
         os.remove("video.mp4")
         
-@app.get("/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf")
+@app.get("/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf", tags=['Version 1'])
 async def get_media():
     if media == "photo":
         def iterimage():
@@ -69,15 +69,15 @@ async def get_media():
         return StreamingResponse(iterimage(), media_type="image/png")
     elif media == "video":
         def itervideo():
-                os.path.join("video.mp4")
-                with open("video.mp4", "rb") as video:
-                    yield from video
+            os.path.join("video.mp4")
+            with open("video.mp4", "rb") as video:
+                yield from video
 
         return StreamingResponse(itervideo(), media_type="video/mp4")
         
-@app.get("/contact-admin")
+@app.get("/contact-admin", tags=['Contact Admin'])
 async def contact_admin():
-    return {"message": "https://t.me/sinofarmonov"}
+    return {"telegram": "https://t.me/sinofarmonov"}
 
 class Instagram:
     @staticmethod
@@ -145,14 +145,10 @@ class Instagram:
             }
             return response
 
-@app.get("/api/v2/download")
+@app.get("/api/v2/download", tags=['Version 2'])
 async def get_instagram_media(url: str):
     try:
         info = await Instagram.get_info(url)
         return info
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("myapp:app", host="127.0.0.1", port=8000, reload=True)

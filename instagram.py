@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-class Instagram:
+class InstagramV1:
     def __init__(self, url: str):
         self.url = url
     

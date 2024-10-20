@@ -143,7 +143,7 @@ class Instagram:
 
 @app.get("/api/v2/download", tags=['Version 2'], name="Instagram Media Downloader API Paid")
 async def get_instagram_media(url: str, token: str):
-    if token == "howdidyoufindthetoken":
+    if token == open('token.txt', 'r').read():
         try:
             info = await Instagram.get_info(url)
             return info

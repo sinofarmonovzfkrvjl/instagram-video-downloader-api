@@ -8,7 +8,13 @@ import aiohttp
 from bs4 import BeautifulSoup
 from yarl import URL
 
-app = FastAPI(docs_url='/', title="Instagram Media Downloder API | t.me/sinofarmonov2")
+app = FastAPI(
+    docs_url='/',
+    title="Instagram Media Downloder API | t.me/sinofarmonov2",
+    description="This is Instagram Media Downloader API",
+    version="1.0.0",
+    summary="contact admin: https://t.me/sinofarmonov2",
+)
 
 app.add_middleware(
     cors.CORSMiddleware,
@@ -17,12 +23,6 @@ app.add_middleware(
     allow_headers=["*"],
     allow_credentials=True
 )
-
-@app.get("/", include_in_schema=False)
-async def root():
-    return """this is instagram video downloader API
-    
-    Bu instagramdan video yuklovchi API"""
 
 media = None
 
@@ -58,7 +58,7 @@ async def download(url: str):
         sleep(5)
         os.remove("video.mp4")
         
-@app.get("/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf", tags=['Version 1'])
+@app.get("/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf", tags=['Version 1'], include_in_schema=False    )
 async def get_media():
     if media == "photo":
         def iterimage():
@@ -74,10 +74,6 @@ async def get_media():
                 yield from video
 
         return StreamingResponse(itervideo(), media_type="video/mp4")
-        
-@app.get("/contact-admin", tags=['Contact Admin'])
-async def contact_admin():
-    return {"telegram": "https://t.me/sinofarmonov"}
 
 class Instagram:
     @staticmethod

@@ -26,7 +26,7 @@ app.add_middleware(
 
 media = None
 
-@app.get("/api/v1/download", tags=['Version 1'])
+@app.get("/api/v1/download", tags=['Version 1'], name="Instagram Media Downloader API Free")
 async def download(url: str):
     try:
         os.remove("video.mp4")
@@ -141,10 +141,13 @@ class Instagram:
             }
             return response
 
-@app.get("/api/v2/download", tags=['Version 2'])
-async def get_instagram_media(url: str):
-    try:
-        info = await Instagram.get_info(url)
-        return info
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+@app.get("/api/v2/download", tags=['Version 2'], name="Instagram Media Downloader API Paid")
+async def get_instagram_media(url: str, token: str):
+    if token == "howdidyoufindthetoken":
+        try:
+            info = await Instagram.get_info(url)
+            return info
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=str(e))
+    else:
+        raise HTTPException(status_code=400, detail="Token is incorrect")

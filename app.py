@@ -58,7 +58,7 @@ async def download(url: str):
         sleep(5)
         os.remove("video.mp4")
         
-@app.get("/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf", tags=['Version 1'], include_in_schema=False    )
+@app.get("/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf", tags=['Version 1'], include_in_schema=False)
 async def get_media():
     if media == "photo":
         def iterimage():

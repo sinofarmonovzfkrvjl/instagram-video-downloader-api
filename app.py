@@ -57,7 +57,7 @@ async def download(url: str):
             return {"url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
         sleep(5)
         os.remove("video.mp4")
-        
+
 @app.get("/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf", tags=['Version 1'], include_in_schema=False)
 async def get_media():
     if media == "photo":

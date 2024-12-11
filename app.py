@@ -26,54 +26,54 @@ app.add_middleware(
 
 media = None
 
-@app.get("/api/v1/download", tags=['Version 1'], name="Instagram Media Downloader API Free")
-async def download(url: str):
-    try:
-        os.remove("video.mp4")
-    except:
-        pass
-    try:
-        os.remove("image.png")
-    except:
-        pass
+# @app.get("/api/v1/download", tags=['Version 1'], name="Instagram Media Downloader API Free")
+# async def download(url: str):
+#     try:
+#         os.remove("video.mp4")
+#     except:
+#         pass
+#     try:
+#         os.remove("image.png")
+#     except:
+#         pass
     
-    if url.startswith("https://www.instagram.com/p/"):
-        global media
-        media = "photo"
-        description = InstagramV1(url).download_photo()
-        if description:
-            return {"description": description, "url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
-        elif not description:
-            return {"url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
-        sleep(5)
-        os.remove("image.png")
+#     if url.startswith("https://www.instagram.com/p/"):
+#         global media
+#         media = "photo"
+#         description = InstagramV1(url).download_photo()
+#         if description:
+#             return {"description": description, "url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
+#         elif not description:
+#             return {"url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
+#         sleep(5)
+#         os.remove("image.png")
         
-    else:
-        media = "video"
-        description = InstagramV1(url).download_video()
-        if description:
-            return {"description": description, "url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
-        elif not description:
-            return {"url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
-        sleep(5)
-        os.remove("video.mp4")
+#     else:
+#         media = "video"
+#         description = InstagramV1(url).download_video()
+#         if description:
+#             return {"description": description, "url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
+#         elif not description:
+#             return {"url": "/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf"}
+#         sleep(5)
+#         os.remove("video.mp4")
 
-@app.get("/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf", tags=['Version 1'], include_in_schema=False)
-async def get_media():
-    if media == "photo":
-        def iterimage():
-                os.path.join("image.png")
-                with open("image.png", "rb") as image:
-                    yield from image
+# @app.get("/api/v1/get-videoihfnejndgiuf/iuh43rwehbndsijrewbbfdhbfdjhfjdsfhjdsf", tags=['Version 1'], include_in_schema=False)
+# async def get_media():
+#     if media == "photo":
+#         def iterimage():
+#             os.path.join("image.png")
+#             with open("image.png", "rb") as image:
+#                 yield from image
 
-        return StreamingResponse(iterimage(), media_type="image/png")
-    elif media == "video":
-        def itervideo():
-            os.path.join("video.mp4")
-            with open("video.mp4", "rb") as video:
-                yield from video
+    #     return StreamingResponse(iterimage(), media_type="image/png")
+    # elif media == "video":
+    #     def itervideo():
+    #         os.path.join("video.mp4")
+    #         with open("video.mp4", "rb") as video:
+    #             yield from video
 
-        return StreamingResponse(itervideo(), media_type="video/mp4")
+    #     return StreamingResponse(itervideo(), media_type="video/mp4")
 
 class Instagram:
     @staticmethod
@@ -141,13 +141,13 @@ class Instagram:
             }
             return response
 
-@app.get("/api/v2/download", tags=['Version 2'], name="Instagram Media Downloader API Paid")
-async def get_instagram_media(url: str, token: str):
-    if token == "1029384756zfkrvjl323":
-        try:
-            info = await Instagram.get_info(url)
-            return info
-        except Exception as e:
-            raise HTTPException(status_code=400, detail=str(e))
-    else:
-        raise HTTPException(status_code=400, detail="Token is incorrect")
+@app.get("/api/v2/download", tags=['Instagram Media Downloader API'], name="Instagram Media Downloader API Paid")
+async def get_instagram_media(url: str):
+    # if token == "1029384756zfkrvjl323":
+    try:
+        info = await Instagram.get_info(url)
+        return info
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    # else:
+        # raise HTTPException(status_code=400, detail="Token is incorrect")

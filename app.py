@@ -141,13 +141,13 @@ class Instagram:
             }
             return response
 
-@app.get("/api/v2/download", tags=['Instagram Media Downloader API'], name="Instagram Media Downloader API Paid")
-async def get_instagram_media(url: str):
-    # if token == "1029384756zfkrvjl323":
-    try:
-        info = await Instagram.get_info(url)
-        return info
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
-    # else:
-        # raise HTTPException(status_code=400, detail="Token is incorrect")
+@app.get("/api/v1/download", tags=['Instagram Media Downloader API'], name="Instagram Media Downloader API Paid")
+async def get_instagram_media(url: str, token: str):
+    if token == "1029384756zfkrvjl323":
+        try:
+            info = await Instagram.get_info(url)
+            return info
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=str(e))
+    else:
+        raise HTTPException(status_code=400, detail="Token is incorrect")
